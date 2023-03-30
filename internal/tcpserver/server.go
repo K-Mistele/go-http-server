@@ -1,6 +1,7 @@
-package server
+package tcpserver
 
 import (
+	"fmt"
 	"github.com/k-mistele/go-http-server/internal/config"
 )
 
@@ -10,7 +11,7 @@ type Server struct {
 	Port int
 }
 
-// NewServer creates a new server using defaults
+// NewServer creates a new tcpserver using defaults
 func NewServer() *Server {
 
 	serverConfig := config.NewConfig()
@@ -20,10 +21,16 @@ func NewServer() *Server {
 	}
 }
 
-// NewServerWithOptions creates a server using a configuration object
-func NewServerWithOptions(configuration config.Config) *Server {
+// NewServerWithOptions creates a tcpserver using a configuration object
+func NewServerWithOptions(configuration *config.Config) *Server {
 	return &Server{
 		Host: configuration.ListenHost,
 		Port: configuration.ListenPort,
 	}
+}
+
+func (s *Server) Start() error {
+
+	fmt.Printf("Starting server at %s:%d\n", s.Host, s.Port)
+	return nil
 }
